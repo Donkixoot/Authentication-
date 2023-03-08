@@ -1,0 +1,20 @@
+<div class="container">
+  <ng-container *ngIf="isAuthenticated()">
+    <form class="content" [formGroup]="postForm" (ngSubmit)="onSubmit(postForm)">
+      <mat-form-field class="mat-form-field">
+        <input matInput placeholder="Title" formControlName="title">
+      </mat-form-field>
+      <mat-form-field class="mat-form-field">
+        <textarea matInput placeholder="Text" formControlName="content" rows="10"></textarea>
+      </mat-form-field>
+      <div class="button-row">
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button class="cancel" mat-raised-button (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </ng-container>
+  <ng-container class="container" *ngIf="!isAuthenticated()">
+    <p>Please login to view this page.</p>
+  </ng-container>
+</div>
+

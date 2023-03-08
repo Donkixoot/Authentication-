@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row> <h1>Simple Blog</h1></mat-toolbar-row>
+  <mat-toolbar-row >
+    <span class="spacer"></span>
+    <div>
+      <ng-template [ngIf] = "!_authService.isAuthenticated()">
+        <button mat-raised-button color="primary" routerLink ="/login" routerLinkActive="active" >Login</button>
+        <button mat-raised-button color="primary" routerLink ="/register" routerLinkActive="active">Register</button>
+      </ng-template>
+     <button mat-raised-button color="primary" (click)="logOut()" *ngIf="isAuthenticated()">Logout</button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

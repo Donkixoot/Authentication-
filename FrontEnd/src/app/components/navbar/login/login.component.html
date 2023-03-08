@@ -1,0 +1,29 @@
+<form>
+	<div class="login-container">
+		<div class="login-content">
+			<mat-toolbar class="login-toolbar" color="primary">Simple Blog</mat-toolbar>
+			<mat-card>
+				<form [formGroup]="loginForm" #formDirective="ngForm"
+          (ngSubmit)="onSubmit(loginForm)" >
+					<mat-form-field class="mat-form-field">
+						<mat-icon matPrefix>person_outline</mat-icon>
+						<input autofocus type="text" matInput placeholder="Username" formControlName="email">
+					</mat-form-field>
+					<mat-form-field class="mat-form-field">
+						<mat-icon matPrefix>lock_outline</mat-icon>
+						<input type="password" autocomplete="false" matInput placeholder="Password"  formControlName="password">
+					</mat-form-field>
+
+					<button type="submit" class="mat-raised-button" color="primary">LOGIN</button>
+        </form>
+					<mat-toolbar class="login-toolbar" style="background-color:white">login with</mat-toolbar>
+					<div class="socialMediaFlex">
+            <asl-google-signin-button class="nav-link">Sign in with google</asl-google-signin-button>
+					</div>
+          <br>
+          <span> If You don't have a account yet please <a routerLink ='/register'>REGISTER HERE</a></span>
+			</mat-card>
+		</div>
+	</div>
+</form>
+
