@@ -1,1 +1,6 @@
 /.editorconfig
+/*.editorconfig
+Backend/.vs
+Backend/SimpleBlog/bin
+Backend/SimpleBlog/obj
+FrontEnd/.vscode
