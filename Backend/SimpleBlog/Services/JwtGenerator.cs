@@ -11,9 +11,9 @@ namespace SimpleBlog.Services
     public class JwtGenerator
     {
         /// <summary>
-        /// Публичный ключ.
+        /// Приватный ключ.
         /// </summary>
-        private readonly RsaSecurityKey _publicKey;
+        private readonly RsaSecurityKey _privateKey;
 
         /// <summary>
         /// Генератор JWT.
@@ -23,7 +23,7 @@ namespace SimpleBlog.Services
         {
             var privateRSA = RSA.Create();
             privateRSA.ImportRSAPrivateKey(Convert.FromBase64String(privateKey), out _);
-            _publicKey = new RsaSecurityKey(privateRSA);
+            _privateKey = new RsaSecurityKey(privateRSA);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace SimpleBlog.Services
                     new Claim(ClaimTypes.Sid, email)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(60),
-                SigningCredentials = new SigningCredentials(_publicKey, SecurityAlgorithms.RsaSha256)
+                SigningCredentials = new SigningCredentials(_privateKey, SecurityAlgorithms.RsaSha256)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
