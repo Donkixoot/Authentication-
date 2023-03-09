@@ -8,7 +8,6 @@ using SimpleBlog.Data.Models;
 using SimpleBlog.Dtos.Requests;
 using SimpleBlog.Dtos.Responses;
 using SimpleBlog.Interfaces;
-using SimpleBlog.Services;
 
 namespace SimpleBlog.Controllers
 {
@@ -20,14 +19,20 @@ namespace SimpleBlog.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly JwtGenerator _jwtGenerator;
+        private readonly IJwtGenerationService _jwtGenerationService;
         private readonly IUserRepository _userRepository;
 
-        public AuthController(IConfiguration configuration, IUserRepository userRepository)
+        /// <summary>
+        /// Контроллер авторизации и регистрации.
+        /// </summary>
+        /// <param name="configuration"> Конфигурация приложения. </param>
+        /// <param name="userRepository"> Репозиторий пользователей. </param>
+        /// <param name="jwtGenerationService"> Сервис генерации JWT. </param>
+        public AuthController(IConfiguration configuration, IUserRepository userRepository, IJwtGenerationService jwtGenerationService)
         {
             _configuration = configuration;
             _userRepository = userRepository;
-            _jwtGenerator = new JwtGenerator(configuration.GetValue<string>("JwtPrivateKey"));
+            _jwtGenerationService = jwtGenerationService;
         }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace SimpleBlog.Controllers
 
             return Ok(new AuthResponseDto
             {
-                AuthToken = _jwtGenerator.CreateAuthToken(emailLoginRequestDto.Email),
+                AuthToken = _jwtGenerationService.CreateAuthToken(emailLoginRequestDto.Email),
                 UserName = user.Name
             });
         }
@@ -99,7 +104,7 @@ namespace SimpleBlog.Controllers
 
             return Ok(new AuthResponseDto
             {
-                AuthToken = _jwtGenerator.CreateAuthToken(payload.Email),
+                AuthToken = _jwtGenerationService.CreateAuthToken(payload.Email),
                 UserName = user.Name
             });
         }

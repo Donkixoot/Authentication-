@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using SimpleBlog.Data;
 using SimpleBlog.Data.Repositories;
 using SimpleBlog.Interfaces;
+using SimpleBlog.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,7 @@ builder.Services.AddTransient<IConfigureOptions<JwtBearerOptions>, ConfigureJwtB
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IJwtGenerationService, JwtGenerationService>();
 
 var app = builder.Build();
 
